@@ -1,0 +1,16 @@
+p > a {
+    border-bottom: 1px dotted silver;
+    text-decoration: none !important;
+    font-weight: 400;
+    color: #515151;
+}
+
+p > a:hover {
+    border-bottom: 1px dotted black;
+    text-decoration: none !important;
+}
+li > span:first-child {
+    width: 40px; 
+    white-space: nowrap; 
+    display: inline-block;
+}
