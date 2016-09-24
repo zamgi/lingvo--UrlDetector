@@ -6,20 +6,20 @@ $(document).ready(function () {
         var _len = $("#text").val().length; 
         var len = _len.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
         var $textLength = $("#textLength");
-        $textLength.html("длина текста: " + len + " символов");
+        $textLength.html("length of text: " + len + " characters");
         if (MAX_INPUTTEXT_LENGTH < _len) $textLength.addClass("max-inputtext-length");
         else                             $textLength.removeClass("max-inputtext-length");
     };
     var getText = function ($text) {
         var text = trim_text($text.val().toString());
         if (is_text_empty(text)) {
-            alert("Введите текст для обработки.");
+            alert("Enter the text to be processed.");
             $text.focus();
             return (null);
         }
 
         if (text.length > MAX_INPUTTEXT_LENGTH) {
-            if (!confirm('Превышен рекомендуемый лимит ' + MAX_INPUTTEXT_LENGTH + ' символов (на ' + (text.length - MAX_INPUTTEXT_LENGTH) + ' символов).\r\nТекст будет обрезан, продолжить?')) {
+            if (!confirm('Exceeded the recommended limit ' + MAX_INPUTTEXT_LENGTH + '  characters (on the ' + (text.length - MAX_INPUTTEXT_LENGTH) + ' characters).\r\nText will be truncated, continue?')) {
                 return (null);
             }
             text = text.substr(0, MAX_INPUTTEXT_LENGTH);
@@ -47,12 +47,8 @@ $(document).ready(function () {
             },
             success: function (responce) {
                 if (responce.err) {
-                    if (responce.err == "goto-on-captcha") {
-                        window.location.href = "Captcha.aspx";
-                    } else {
-                        processing_end();
-                        $('.result-info').addClass('error').text(responce.err);
-                    }
+                    processing_end();
+                    $('.result-info').addClass('error').text(responce.err);
                 } else {
                     $('.result-info').removeClass('error').text('');
 
@@ -72,10 +68,10 @@ $(document).ready(function () {
 
                         processing_end();
                         $('#processResult').html( html );
-                        $('#resultCount').text( 'найдено Url и E-mail адресов: ' + responce.urls.length );
+                        $('#resultCount').text('found Url and Email Addresses: ' + responce.urls.length);
                     } else {
                         processing_end();
-                        $('#processResult').html('<div style="text-align: center; padding: 15px;"><b>Url и E-mail адресов</b> в тексте не найденно</div>');
+                        $('#processResult').html('<div style="text-align: center; padding: 15px;"><b>Url and Email Addresses</b> not found in the text</div>');
                     }
 
                     //---$('#text').html( text );
@@ -83,7 +79,7 @@ $(document).ready(function () {
             },
             error: function () {
                 processing_end();
-                $('.result-info').addClass('error').text('ошибка сервера');
+                $('.result-info').addClass('error').text('server error');
             }
         });
         
@@ -93,7 +89,7 @@ $(document).ready(function () {
 
     function processing_start(){
         $('#text').addClass('no-change').attr('readonly', 'readonly').attr('disabled', 'disabled');
-        $('.result-info').removeClass('error').html('<div style="text-align: center">Идет обработка...</div>');
+        $('.result-info').removeClass('error').html('<div style="text-align: center">Processing...</div>');
         $('#processButton').addClass('disabled');
         $('#processResult,#resultCount').empty();
     };
