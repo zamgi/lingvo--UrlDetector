@@ -9,8 +9,22 @@ p > a:hover {
     border-bottom: 1px dotted black;
     text-decoration: none !important;
 }
-li > span:first-child {
-    width: 40px; 
-    white-space: nowrap; 
-    display: inline-block;
+
+#article {
+    padding: 20px;
 }
+#article > p {
+    text-indent: 1.5em;
+}
+.article-header {
+    background: none; padding-bottom: 10px; margin-top: 20px; text-align: center; font-weight: normal;
+}
+
+#articles-list li {
+    list-style: url('../images/bullet_yellow.png');
+    /*list-style-position: outside;*/
+}
+
+#article ul, ol { margin: 1em 0; padding: 0; padding-left: 30px }
+#article ul { list-style: square; }
+#article ol li { padding: 0; margin: 0 15px 15px 20px; }

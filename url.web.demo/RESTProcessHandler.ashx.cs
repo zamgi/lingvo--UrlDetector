@@ -120,8 +120,6 @@ namespace lingvo.core
 
         public void ProcessRequest( HttpContext context )
         {
-            context.Response.ContentType = "application/json";
-            //---context.Response.Headers.Add( "Access-Control-Allow-Origin", "*" );
             try
             {
                 var text = context.GetRequestStringParam( "text", Config.MAX_INPUTTEXT_LENGTH );
@@ -131,8 +129,6 @@ namespace lingvo.core
                 var urls = factory.Run( text );
 
                 SendJsonResponse( context, urls );
-
-                LoadTextHandler.SaveNoThrow( context, text );
             }
             catch ( Exception ex )
             {
@@ -150,6 +146,9 @@ namespace lingvo.core
         }
         private static void SendJsonResponse( HttpContext context, result result )
         {
+            context.Response.ContentType = "application/json";
+            //---context.Response.Headers.Add( "Access-Control-Allow-Origin", "*" );
+
             var json = JsonConvert.SerializeObject( result );
             context.Response.Write( json );
         }
