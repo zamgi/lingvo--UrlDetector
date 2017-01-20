@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlDetector", "UrlDetector\UrlDetector.csproj", "{B17C29AF-E052-413B-9149-4F49E5DA2571}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[resources]", "[resources]", "{A8FBD7C8-260E-484B-90B6-B969250E5996}"
-	ProjectSection(SolutionItems) = preProject
-		[resources]\url-detector-resources.xml = [resources]\url-detector-resources.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "url.web.demo", "url.web.demo\url.web.demo.csproj", "{8DE41E0F-D5DE-40A2-9C73-40A00A2EF941}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[lib]", "[lib]", "{B6E470F1-A568-487F-8C00-9ADEE9F20116}"

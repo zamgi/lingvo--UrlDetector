@@ -63,9 +63,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\[resources]\url-detector-resources.xml">
-      <Link>[resources]\url-detector-resources.xml</Link>
-    </Content>
     <Content Include="index.html" />
     <Content Include="description.html" />
     <Content Include="rc\css\description.css" />
@@ -84,6 +81,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="[resources]\url-detector-resources.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentFactory.cs" />
@@ -100,6 +98,9 @@
       <Project>{b17c29af-e052-413b-9149-4f49e5da2571}</Project>
       <Name>UrlDetector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="[resources]\URI_scheme.url" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
