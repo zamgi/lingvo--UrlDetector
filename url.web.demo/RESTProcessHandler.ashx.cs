@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Web;
+
 using lingvo.urls;
 using Newtonsoft.Json;
 
@@ -28,10 +26,6 @@ namespace lingvo.core
     /// </summary>
     public sealed class RESTProcessHandler : IHttpHandler
     {
-        #region [.config.]
-        private static readonly int CONCURRENT_FACTORY_INSTANCE_COUNT = int.Parse( ConfigurationManager.AppSettings[ "CONCURRENT_FACTORY_INSTANCE_COUNT" ] );
-        #endregion
-
         /// <summary>
         /// 
         /// </summary>
@@ -73,7 +67,7 @@ namespace lingvo.core
                 _Context = context;
             }
 
-            private ConcurrentFactory _ConcurrentFactory
+            /*private ConcurrentFactory _ConcurrentFactory
             {
                 get { return ((ConcurrentFactory) _Context.Cache[ "_ConcurrentFactory" ]); }
                 set
@@ -83,7 +77,9 @@ namespace lingvo.core
                     else
                         _Context.Cache.Remove( "_ConcurrentFactory" );
                 }
-            }
+            }*/
+
+            private static ConcurrentFactory _ConcurrentFactory;
 
             public ConcurrentFactory GetConcurrentFactory()
             {
@@ -99,7 +95,7 @@ namespace lingvo.core
                             {
                                 UrlExtractMode = UrlDetector.UrlExtractModeEnum.Position,
                             };
-                            f = new ConcurrentFactory( config, CONCURRENT_FACTORY_INSTANCE_COUNT );
+                            f = new ConcurrentFactory( config, Config.CONCURRENT_FACTORY_INSTANCE_COUNT );
                             _ConcurrentFactory = f;
                         }
                     }
