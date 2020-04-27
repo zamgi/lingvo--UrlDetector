@@ -35,5 +35,6 @@ Detection in the text Url and E-mail addresses
                             Presented component demonstrates the allocation <a href="http://en.wikipedia.org/wiki/Url" target="_blank">Url</a> &amp; <a href="http://en.wikipedia.org/wiki/E-mail" target="_blank">E-mail</a> addresses in the text.
                         </p>                                               
                     </div>
-<hr/>                    
+<hr/>
+
 ![alt tag](https://github.com/mamin-siberiayk/lingvo--UrlDetector/blob/master/demo-img-1.png)                    
