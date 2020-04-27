@@ -3,8 +3,7 @@ Detection in the text Url and E-mail addresses
 
 <a target="_blank" href="http://url.apphb.com/index.html">[ live demo ]</a>
 
-<div style="padding: 20px">
-                        
+<div style="padding: 20px">                        
                         <p style="text-indent: 1.5em">
                             <a href="http://en.wikipedia.org/wiki/Url" target="_blank">Url</a> &amp; <a href="http://en.wikipedia.org/wiki/E-mail" target="_blank">E-mail</a> addresses are used to indicate links to resources located in the LAN/WAN.
                             <br>
