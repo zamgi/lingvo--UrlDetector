@@ -22,9 +22,9 @@ namespace lingvo
 namespace lingvo.core
 {
     /// <summary>
-    /// Summary description for RESTProcessHandler
+    /// Summary description for ProcessHandler
     /// </summary>
-    public sealed class RESTProcessHandler : IHttpHandler
+    public sealed class ProcessHandler : IHttpHandler
     {
         /// <summary>
         /// 
@@ -104,7 +104,7 @@ namespace lingvo.core
             }
         }
 
-        static RESTProcessHandler()
+        static ProcessHandler()
         {
             Environment.CurrentDirectory = HttpContext.Current.Server.MapPath( "~/" );
         }
