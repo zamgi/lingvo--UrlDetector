@@ -71,8 +71,8 @@
     <Content Include="rc\css\description.css" />
     <Content Include="rc\css\style.css" />
     <Content Include="rc\css\url.css" />
-    <Content Include="rc\javascript\jquery-1.9.1.js" />
-    <Content Include="rc\javascript\main.js" />
+    <Content Include="rc\js\jquery-1.9.1.js" />
+    <Content Include="rc\js\main.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
