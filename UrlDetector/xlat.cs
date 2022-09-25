@@ -257,10 +257,7 @@ namespace lingvo.core
             }
             //*/
         }
-        public static bool IsAscii( char ch )
-        {
-            return (0 <= ch && ch <= 127);
-        }
+        public static bool IsAscii( char ch ) => (0 <= ch && ch <= 127);
         public static bool IsURIschemes( char ch )
         {
             if ( ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') )
@@ -397,34 +394,13 @@ namespace lingvo.core
         public static readonly xlat_Unsafe Inst = new xlat_Unsafe();
 
 #if XLAT_CHARTYPE_MAP
-        public bool IsUpper( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsUpper) == CharType.IsUpper);
-        }
-        public bool IsLower( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsLower) == CharType.IsLower);
-        }
-        public bool IsLetter( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsLetter) == CharType.IsLetter);
-        }
-        public bool IsDigit( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsDigit) == CharType.IsDigit);
-        }
-        public bool IsWhiteSpace( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsWhiteSpace) == CharType.IsWhiteSpace);
-        }
-        public bool IsPunctuation( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsPunctuation) == CharType.IsPunctuation);
-        }
-        public bool IsHyphen( char ch )
-        {
-            return ((_CHARTYPE_MAP[ ch ] & CharType.IsHyphen) == CharType.IsHyphen);
-        }
+        public bool IsUpper( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsUpper) == CharType.IsUpper);
+        public bool IsLower( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsLower) == CharType.IsLower);
+        public bool IsLetter( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsLetter) == CharType.IsLetter);
+        public bool IsDigit( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsDigit) == CharType.IsDigit);
+        public bool IsWhiteSpace( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsWhiteSpace) == CharType.IsWhiteSpace);
+        public bool IsPunctuation( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsPunctuation) == CharType.IsPunctuation);
+        public bool IsHyphen( char ch ) => ((_CHARTYPE_MAP[ ch ] & CharType.IsHyphen) == CharType.IsHyphen);
 #endif		
     }
 }

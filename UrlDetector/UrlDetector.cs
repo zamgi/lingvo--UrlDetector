@@ -90,10 +90,10 @@ namespace lingvo.urls
     /// </summary>
     public struct UrlDetectorConfig
     {
-        public UrlDetectorConfig( string urlDetectorResourcesXmlFilename )
+        public UrlDetectorConfig( string urlDetectorResourcesXmlFilename, UrlDetector.UrlExtractModeEnum urlExtractMode = UrlDetector.UrlExtractModeEnum.Position )
         {
-            Model = new UrlDetectorModel( urlDetectorResourcesXmlFilename );
-            UrlExtractMode = UrlDetector.UrlExtractModeEnum.Position;
+            Model          = new UrlDetectorModel( urlDetectorResourcesXmlFilename );
+            UrlExtractMode = urlExtractMode;
         }
         public UrlDetectorModel Model { get; set; }
         public UrlDetector.UrlExtractModeEnum UrlExtractMode { get; set; }

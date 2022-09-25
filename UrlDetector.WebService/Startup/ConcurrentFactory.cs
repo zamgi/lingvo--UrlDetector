@@ -1,45 +1,44 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading;
 
 using lingvo.urls;
+using _UrlDetector_ = lingvo.urls.UrlDetector;
 
-namespace lingvo.core
+namespace UrlDetector.WebService
 {
     /// <summary>
     /// 
     /// </summary>
-	internal sealed class ConcurrentFactory
+	public sealed class ConcurrentFactory
 	{
-		private Semaphore                      _Semaphore;
-        private ConcurrentStack< UrlDetector > _Stack;
+		private Semaphore                        _Semaphore;
+        private ConcurrentStack< _UrlDetector_ > _Stack;
 
         public ConcurrentFactory( UrlDetectorConfig config, int instanceCount )
 		{
-            if ( instanceCount <= 0 ) throw (new ArgumentException("instanceCount"));
+            if ( instanceCount <= 0 ) throw (new ArgumentException( nameof(instanceCount) ));
 
             _Semaphore = new Semaphore( instanceCount, instanceCount );
-            _Stack = new ConcurrentStack< UrlDetector >();
+            _Stack = new ConcurrentStack< _UrlDetector_ >();
 			for ( int i = 0; i < instanceCount; i++ )
 			{
-                _Stack.Push( new UrlDetector( config ) );
-			}			
+                _Stack.Push( new _UrlDetector_( config ) );
+			}
 		}
 
         public url_t[] Run( string text )
 		{
 			_Semaphore.WaitOne();
-			var worker = default(UrlDetector);
+			var worker = default(_UrlDetector_);
 			try
 			{
-                worker = _Stack.Pop();
+                worker = Pop( _Stack );
                 if ( worker == null )
                 {
                     for ( var i = 0; ; i++ )
                     {
-                        worker = _Stack.Pop();
+                        worker = Pop( _Stack );
                         if ( worker != null )
                             break;
 
@@ -64,19 +63,7 @@ namespace lingvo.core
 
             throw (new InvalidOperationException( this.GetType().Name + ": nothing to return (fusking)" ));
 		}
-	}
 
-    /// <summary>
-    /// 
-    /// </summary>
-    internal static class ConcurrentFactoryExtensions
-    {
-        public static T Pop< T >( this ConcurrentStack< T > stack )
-        {
-            var t = default(T);
-            if ( stack.TryPop( out t ) )
-                return (t);
-            return (default(T));
-        }
-    }
+        private static T Pop< T >( ConcurrentStack< T > stack ) => stack.TryPop( out var t ) ? t : default;
+	}
 }

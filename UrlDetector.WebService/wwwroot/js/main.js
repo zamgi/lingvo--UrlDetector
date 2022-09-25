@@ -102,9 +102,7 @@ $(document).ready(function () {
     })();
     $('#resetText2Default').click(function () {
         $("#text").val('');
-        setTimeout(function () {
-            $("#text").val(DEFAULT_TEXT).focus();
-        }, 100);
+        setTimeout(function () { $("#text").val(DEFAULT_TEXT).focus(); }, 100);
     });
 
     $('#mainPageContent').on('click', '#processButton', function () {
@@ -114,47 +112,45 @@ $(document).ready(function () {
         if (!text) return (false);
 
         processing_start();
-        if (text != DEFAULT_TEXT) {
+        if (text !== DEFAULT_TEXT) {
             localStorage.setItem(LOCALSTORAGE_TEXT_KEY, text);
         } else {
             localStorage.removeItem(LOCALSTORAGE_TEXT_KEY);
         }
 
+        var model = {
+            text: text
+        };
         $.ajax({
-            type: "POST",
-            url:  "ProcessHandler.ashx",
-            data: {
-                text: text
-            },
-            success: function (responce) {
-                if (responce.err) {
-                    if (responce.err == "goto-on-captcha") {
-                        window.location.href = "Captcha.aspx";
-                    } else {
-                        processing_end();
-                        $('.result-info').addClass('error').text(responce.err);
-                    }
+            type       : "POST",
+            contentType: "application/json",
+            dataType   : "json",
+            url        : "/Process/Run",
+            data       : JSON.stringify( model ),
+            success: function (resp) {
+                if (resp.err) {
+                    processing_end();
+                    $('.result-info').addClass('error').text(resp.err);
                 } else {
                     $('.result-info').removeClass('error').text('');
 
-                    if (responce.urls && responce.urls.length != 0) {
-                        var html = '';
-                        var startIndex = 0;
-                        for (var i = 0, len = responce.urls.length; i < len; i++) {
-                            var url = responce.urls[ i ];
+                    if (resp.urls && resp.urls.length) {
+                        var htmls = [], $div = $('<div>'), startIndex = 0;
+                        for (var i = 0, len = resp.urls.length; i < len; i++) {
+                            var url = resp.urls[ i ];
                             //text = text.insert( url.startIndex + url.length, '</span>' ).insert( url.startIndex, '<span class="url">' );
-                            var url_value = text.substr(url.startIndex, url.length);
-                            html += text.substr(startIndex, url.startIndex - startIndex) +
-                                    '<span class="url" title=' + url_value + '>' + url_value + '</span>';
+                            var url_value   = $div.text( text.substr(url.startIndex, url.length) ).html(),
+                                before_text = $div.text( text.substr(startIndex, url.startIndex - startIndex) ).html();
+                            htmls.push( before_text + '<span class="url" title=' + url_value + '>' + url_value + '</span>' );
                             startIndex = url.startIndex + url.length;
                         }
-                        html += text.substr(startIndex, text.length - startIndex);
-                        html = html.replaceAll('\r\n', '<br/>').replaceAll('\n', '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;');
+                        htmls.push( $div.text( text.substr(startIndex, text.length - startIndex) ).html() );
+                        var html = htmls.join('').replaceAll('\r\n', '<br/>').replaceAll('\n', '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;');
 
                         processing_end();
                         $('.result-info').hide();
                         $('#processResult').show().html( html );
-                        $('#resultCount').text( 'found Url and E-mail address:' + responce.urls.length );
+                        $('#resultCount').text( 'found Url and E-mail address:' + resp.urls.length );
                     } else {
                         processing_end();
                         $('#processResult').show().html('<div style="text-align: center; padding: 15px;"><b>Url and E-mail addresses</b> not found in the text</div>');
@@ -182,24 +178,18 @@ $(document).ready(function () {
         $('#resultCount').text('');
         $('#processButton').removeClass('disabled');
     };
-    function trim_text(text) {
-        return (text.replace(/(^\s+)|(\s+$)/g, ""));
-    };
-    function is_text_empty(text) {
-        return (text.replace(/(^\s+)|(\s+$)/g, "") == "");
-    };
+    function trim_text(text) { return (text.replace(/(^\s+)|(\s+$)/g, "")); };
+    function is_text_empty(text) { return !trim_text(text); };
     String.prototype.insert = function (index, str) {
         if (0 < index)
             return (this.substring(0, index) + str + this.substring(index, this.length));
         return (str + this);
     };
     String.prototype.replaceAll = function (token, newToken, ignoreCase) {
-        var _token;
         var str = this + "";
         var i = -1;
         if (typeof token === "string") {
             if (ignoreCase) {
-                _token = token.toLowerCase();
                 while ((i = str.toLowerCase().indexOf(token, i >= 0 ? i + newToken.length : 0)) !== -1) {
                     str = str.substring(0, i) + newToken + str.substring(i + token.length);
                 }
