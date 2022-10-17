@@ -1,7 +1,6 @@
 using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
@@ -36,8 +35,6 @@ namespace UrlDetector.WebService
             var logger                  = default(ILogger);
             try
             {
-                Encoding.RegisterProvider( CodePagesEncodingProvider.Instance );
-
                 var config            = new UrlDetectorConfig( Config.URL_DETECTOR_RESOURCES_XML_FILENAME );
                 var concurrentFactory = new ConcurrentFactory( config, Config.CONCURRENT_FACTORY_INSTANCE_COUNT );
                 //---------------------------------------------------------------//

@@ -24,7 +24,7 @@ namespace UrlDetector.WebService
     /// </summary>
     internal sealed class Startup
     {
-        public void ConfigureServices( IServiceCollection services )
+        public static void ConfigureServices( IServiceCollection services )
         {
             services.AddControllers().AddJsonOptions( options =>
             {
@@ -42,8 +42,7 @@ namespace UrlDetector.WebService
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app, IWebHostEnvironment env )
+        public static void Configure( IApplicationBuilder app, IWebHostEnvironment env )
         {
             if ( env.IsDevelopment() )
             {
@@ -58,21 +57,8 @@ namespace UrlDetector.WebService
             app.UseAuthorization();
 
             app.UseEndpoints( endpoints => endpoints.MapControllers() );
-
-            /*
-            app.Use( async (ctx, next) =>
-            {
-                await next();
-
-                if ( (ctx.Response.StatusCode != 200) && (ctx.Request.Path == "/") )
-                {
-                    //ctx.Response.StatusCode = 
-                    ctx.Response.Redirect( "/index.html", true );
-                }                
-            });
-            */
-            //-------------------------------------------------------------//
 #if DEBUG
+            //-------------------------------------------------------------//
             OpenBrowserIfRunAsConsole( app );
 #endif
         }
